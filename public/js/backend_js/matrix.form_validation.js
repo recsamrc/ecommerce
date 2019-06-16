@@ -86,7 +86,7 @@ $(document).ready(function(){
 			product_code:{
 				required:true
 			},
-			product_color:{
+			stock:{
 				required:true
 			},
 			price:{
@@ -120,7 +120,7 @@ $(document).ready(function(){
 			product_code:{
 				required:true
 			},
-			product_color:{
+			stock:{
 				required:true
 			},
 			price:{

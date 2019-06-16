@@ -47,30 +47,28 @@
                   <input type="text" name="product_code" id="product_code" value="{{ $productDetails->product_code }}">
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label">Product Color</label>
-                <div class="controls">
-                  <input type="text" name="product_color" id="product_color" value="{{ $productDetails->product_color }}">
-                </div>
-              </div>
+              
               <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
                   <textarea name="description">{{ $productDetails->description }}</textarea>
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label">Material & Care</label>
-                <div class="controls">
-                  <textarea name="care">{{ $productDetails->care }}</textarea>
-                </div>
-              </div>
+              
               <div class="control-group">
                 <label class="control-label">Price</label>
                 <div class="controls">
                   <input type="text" name="price" id="price" value="{{ $productDetails->price }}">
                 </div>
               </div>
+			  
+			  <div class="control-group">
+                <label class="control-label">Stock</label>
+                <div class="controls">
+                  <input type="text" name="stock" id="stock" value="{{ $productDetails->stock }}">
+                </div>
+              </div>
+			  
               <div class="control-group">
                 <label class="control-label">Image</label>
                 <div class="controls">

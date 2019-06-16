@@ -100,15 +100,15 @@
 								<p>Product Code: {{ $cart->product_code }}</p>
 							</td>
 							<td class="cart_price">
-								<p>INR {{ $cart->price }}</p>
+								<p>$ {{ $cart->price }}</p>
 							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
+							<td  class="cart_price">
+								<p>
 									{{ $cart->quantity }}
-								</div>
+								<p>
 							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">INR {{ $cart->price*$cart->quantity }}</p>
+							<td class="cart_total_price">
+								<p class="cart_total_price">$ {{ $cart->price*$cart->quantity }}</p>
 							</td>
 						</tr>
 						<?php $total_amount = $total_amount + ($cart->price*$cart->quantity); ?>
@@ -119,25 +119,25 @@
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>INR {{ $total_amount }}</td>
+										<td>$ {{ $total_amount }}</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost (+)</td>
-										<td>INR 0</td>										
+										<td>$ 0</td>										
 									</tr>
 									<tr class="shipping-cost">
 										<td>Discount Amount (-)</td>
 										<td>
 											@if(!empty(Session::get('CouponAmount')))
-												INR {{ Session::get('CouponAmount') }}
+												$ {{ Session::get('CouponAmount') }}
 											@else
-												INR 0
+												$ 0
 											@endif
 										</td>	
 									</tr>
 									<tr>
 										<td>Grand Total</td>
-										<td><span>INR {{ $grand_total = $total_amount - Session::get('CouponAmount') }}</span></td>
+										<td><span>$ {{ $grand_total = $total_amount - Session::get('CouponAmount') }}</span></td>
 									</tr>
 								</table>
 							</td>

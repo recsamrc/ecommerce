@@ -17,7 +17,7 @@ class Frontlogin
     public function handle($request, Closure $next)
     {
         if(empty(Session::has('frontSession'))){
-            return redirect('/login-register');
+            return redirect('/userlogin');
         }
         return $next($request);
     }

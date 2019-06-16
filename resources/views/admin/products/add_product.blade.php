@@ -47,28 +47,24 @@
                   <input type="text" name="product_code" id="product_code">
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label">Product Color</label>
-                <div class="controls">
-                  <input type="text" name="product_color" id="product_color">
-                </div>
-              </div>
+             
               <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
                   <textarea name="description"></textarea>
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label">Material & Care</label>
-                <div class="controls">
-                  <textarea name="care"></textarea>
-                </div>
-              </div>
+              
               <div class="control-group">
                 <label class="control-label">Price</label>
                 <div class="controls">
                   <input type="text" name="price" id="price">
+                </div>
+              </div>
+			  <div class="control-group">
+                <label class="control-label">Stock</label>
+                <div class="controls">
+                  <input type="text" name="stock" id="stock">
                 </div>
               </div>
               <div class="control-group">

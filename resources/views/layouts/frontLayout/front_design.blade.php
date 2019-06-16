@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Home | E-Shopper</title>
-    <link href="{{ asset('css/frontend_css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/prettyPhoto.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/price-range.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/animate.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/frontend_css/main.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/frontend_css/responsive.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/easyzoom.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend_css/passtrength.css') }}" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>BookFreak -Ecommerce  | Shop</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{{ asset('images/frontend_css/core-img/favicon.ico') }}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/core-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/nouislider.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/easyzoom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/passtrength.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/themify-icons.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/regular_responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/regular_styles.css') }}">
+    <!-- Responsive CSS -->
+    <link href="{{ asset('css/frontend_css/responsive.css" rel="stylesheet') }}">
 </head><!--/head-->
 
 <body>
+    <div id="wrapper">
+
 	@include('layouts.frontLayout.front_header')
 	
 	@yield('content')
 	
 	@include('layouts.frontLayout.front_footer')
 
-    <script src="{{ asset('js/frontend_js/jquery.js') }}"></script>
+    </div>
+
+    <script src="{{ asset('js/frontend_js/jquery/jquery-2.2.4.min.js') }}"></script>
 	<script src="{{ asset('js/frontend_js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('js/frontend_js/jquery.scrollUp.min.js') }}"></script>
-	<script src="{{ asset('js/frontend_js/price-range.js') }}"></script>
-    <script src="{{ asset('js/frontend_js/jquery.prettyPhoto.js') }}"></script>
-    <script src="{{ asset('js/frontend_js/easyzoom.js') }}"></script>
+	<script src="{{ asset('js/frontend_js/popper.min.js') }}"></script>
+	<script src="{{ asset('js/frontend_js/active.js') }}"></script>
+    <script src="{{ asset('js/frontend_js/plugins.js') }}"></script>
     <script src="{{ asset('js/frontend_js/main.js') }}"></script>
     <script src="{{ asset('js/frontend_js/jquery.validate.js') }}"></script>
     <script src="{{ asset('js/frontend_js/passtrength.js') }}"></script>
-    
+    <script src="{{ asset('js/frontend_js/easyzoom.js') }}"></script>
+     <script src="{{ asset('js/frontend_js/bootstrap2.min.js') }}"></script>
+   
+     
 </body>
 
 </html>

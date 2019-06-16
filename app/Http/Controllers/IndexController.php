@@ -14,7 +14,7 @@ class IndexController extends Controller
     	// Get all Products
     	$productsAll = Product::inRandomOrder()->where('status',1)->get();
     	$productsAll = json_decode(json_encode($productsAll));
-    	/*dump($productsAll);*/
+    	 /*dump($productsAll);*/
     	/*echo "<pre>"; print_r($productsAll);die;*/
 
 
@@ -23,6 +23,7 @@ class IndexController extends Controller
     	$categories = Category::with('categories')->where(['parent_id' => 0])->get();
     	$categories = json_decode(json_encode($categories));
     	/*echo "<pre>"; print_r($categories); die;*/
+    	// dump($categories);
 		foreach($categories as $cat){
 			$categories_menu .= "
 			<div class='panel-heading'>

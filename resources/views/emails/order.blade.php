@@ -15,8 +15,6 @@
 				<tr bgcolor="#cccccc">
 					<td>Product Name</td>
 					<td>Product Code</td>
-					<td>Size</td>
-					<td>Color</td>
 					<td>Quantity</td>
 					<td>Unit Price</td>
 				</tr>
@@ -24,20 +22,18 @@
 					<tr>
 						<td>{{ $product['product_name'] }}</td>
 						<td>{{ $product['product_code'] }}</td>
-						<td>{{ $product['product_size'] }}</td>
-						<td>{{ $product['product_color'] }}</td>
 						<td>{{ $product['product_qty'] }}</td>
-						<td>INR {{ $product['product_price'] }}</td>
+						<td>$ {{ $product['product_price'] }}</td>
 					</tr>
 				@endforeach
 				<tr>
-					<td colspan="5" align="right">Shipping Charges</td><td>INR {{ $productDetails['shipping_charges'] }}</td>
+					<td colspan="5" align="right">Shipping Charges</td><td>$ {{ $productDetails['shipping_charges'] }}</td>
 				</tr>
 				<tr>
-					<td colspan="5" align="right">Coupon Discount</td><td>INR {{ $productDetails['coupon_amount'] }}</td>
+					<td colspan="5" align="right">Coupon Discount</td><td>$ {{ $productDetails['coupon_amount'] }}</td>
 				</tr>
 				<tr>
-					<td colspan="5" align="right">Grand Total</td><td>INR {{ $productDetails['grand_total'] }}</td>
+					<td colspan="5" align="right">Grand Total</td><td>$ {{ $productDetails['grand_total'] }}</td>
 				</tr>
 			</table>
 		</td></tr>

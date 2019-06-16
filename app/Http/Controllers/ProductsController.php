@@ -10,7 +10,6 @@ use Session;
 use Image;
 use App\Category;
 use App\Product;
-use App\ProductsAttribute;
 use App\ProductsImage;
 use App\Coupon;
 use App\User;
@@ -32,22 +31,19 @@ class ProductsController extends Controller
 			$product->category_id = $data['category_id'];
 			$product->product_name = $data['product_name'];
 			$product->product_code = $data['product_code'];
-			$product->product_color = $data['product_color'];
+		
 			if(!empty($data['description'])){
 				$product->description = $data['description'];
 			}else{
 				$product->description = '';	
 			}
-            if(!empty($data['care'])){
-                $product->care = $data['care'];
-            }else{
-                $product->care = ''; 
-            }
+            
             if(empty($data['status'])){
                 $status='0';
             }else{
                 $status='1';
             }
+            $product->stock = $data['stock'];
 			$product->price = $data['price'];
 
 			// Upload Image
@@ -58,12 +54,12 @@ class ProductsController extends Controller
                     $extension = $image_tmp->getClientOriginalExtension();
 	                $fileName = rand(111,99999).'.'.$extension;
                     $large_image_path = 'images/backend_images/product/large'.'/'.$fileName;
-                    $medium_image_path = 'images/backend_images/product/medium'.'/'.$fileName;  
-                    $small_image_path = 'images/backend_images/product/small'.'/'.$fileName;  
+                     $medium_image_path = 'images/backend_images/product/medium'.'/'.$fileName;  
+                     $small_image_path = 'images/backend_images/product/small'.'/'.$fileName ; 
 
 	                Image::make($image_tmp)->save($large_image_path);
  					Image::make($image_tmp)->resize(600, 600)->save($medium_image_path);
-     				Image::make($image_tmp)->resize(300, 300)->save($small_image_path);
+     				Image::make($image_tmp)->resize(600, 600)->save($small_image_path);
 
      				$product->image = $fileName; 
 
@@ -110,7 +106,7 @@ class ProductsController extends Controller
                     // Upload Images after Resize
                     $extension = $image_tmp->getClientOriginalExtension();
 	                $fileName = rand(111,99999).'.'.$extension;
-                    $large_image_path = 'images/backend_images/product/large'.'/'.$fileName;
+                    $large_image_path = 'images/backend_images/product'.'/'.$fileName;
                     $medium_image_path = 'images/backend_images/product/medium'.'/'.$fileName;  
                     $small_image_path = 'images/backend_images/product/small'.'/'.$fileName;  
 
@@ -129,12 +125,9 @@ class ProductsController extends Controller
             	$data['description'] = '';
             }
 
-            if(empty($data['care'])){
-                $data['care'] = '';
-            }
 
 			Product::where(['id'=>$id])->update(['status'=>$status,'category_id'=>$data['category_id'],'product_name'=>$data['product_name'],
-				'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'image'=>$fileName]);
+				'product_code'=>$data['product_code'],'description'=>$data['description'],'price'=>$data['price'],'stock'=>$data['stock'],'image'=>$fileName]);
 		
 			return redirect()->back()->with('flash_message_success', 'Product has been edited successfully');
 		}
@@ -247,63 +240,6 @@ class ProductsController extends Controller
         return redirect()->back()->with('flash_message_success', 'Product has been deleted successfully');
     }
 
-    public function deleteAttribute($id = null){
-        ProductsAttribute::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Product Attribute has been deleted successfully');
-    }
-
-    public function addAttributes(Request $request, $id=null){
-        $productDetails = Product::with('attributes')->where(['id' => $id])->first();
-        $productDetails = json_decode(json_encode($productDetails));
-        /*echo "<pre>"; print_r($productDetails); die;*/
-
-        $categoryDetails = Category::where(['id'=>$productDetails->category_id])->first();
-        $category_name = $categoryDetails->name;
-
-        if($request->isMethod('post')){
-            $data = $request->all();
-            //echo "<pre>"; print_r($data); die;
-
-            foreach($data['sku'] as $key => $val){
-                if(!empty($val)){
-                    $attrCountSKU = ProductsAttribute::where(['sku'=>$val])->count();
-                    if($attrCountSKU>0){
-                        return redirect('admin/add-attributes/'.$id)->with('flash_message_error', 'SKU already exists. Please add another SKU.');    
-                    }
-                    $attrCountSizes = ProductsAttribute::where(['product_id'=>$id,'size'=>$data['size'][$key]])->count();
-                    if($attrCountSizes>0){
-                        return redirect('admin/add-attributes/'.$id)->with('flash_message_error', 'Attribute already exists. Please add another Attribute.');    
-                    }
-                    $attr = new ProductsAttribute;
-                    $attr->product_id = $id;
-                    $attr->sku = $val;
-                    $attr->size = $data['size'][$key];
-                    $attr->price = $data['price'][$key];
-                    $attr->stock = $data['stock'][$key];
-                    $attr->save();
-                }
-            }
-            return redirect('admin/add-attributes/'.$id)->with('flash_message_success', 'Product Attributes has been added successfully');
-
-        }
-
-        $title = "Add Attributes";
-
-        return view('admin.products.add_attributes')->with(compact('title','productDetails','category_name'));
-    }
-
-    public function editAttributes(Request $request, $id=null){
-        if($request->isMethod('post')){
-            $data = $request->all();
-            /*echo "<pre>"; print_r($data); die;*/
-            foreach($data['idAttr'] as $key=> $attr){
-                if(!empty($attr)){
-                    ProductsAttribute::where(['id' => $data['idAttr'][$key]])->update(['price' => $data['price'][$key], 'stock' => $data['stock'][$key]]);
-                }
-            }
-            return redirect('admin/add-attributes/'.$id)->with('flash_message_success', 'Product Attributes has been updated successfully');
-        }
-    }
 
     public function addImages(Request $request, $id=null){
         $productDetails = Product::where(['id' => $id])->first();
@@ -392,7 +328,7 @@ class ProductsController extends Controller
         }
 
         // Get Product Details
-        $productDetails = Product::with('attributes')->where('id',$id)->first();
+        $productDetails = Product::with('products')->where('id',$id)->first();
         $relatedProducts = Product::where('id','!=',$id)->where(['category_id' => $productDetails->category_id])->get();
 
         /*foreach($relatedProducts->chunk(3) as $chunk){
@@ -408,18 +344,18 @@ class ProductsController extends Controller
         echo "<pre>"; print_r($productAltImages); die;*/
         $categories = Category::with('categories')->where(['parent_id' => 0])->get();
 
-        $total_stock = ProductsAttribute::where('product_id',$id)->sum('stock');
+        $total_stock = Product::where('id',$id)->sum('stock');
 
         return view('products.detail')->with(compact('productDetails','categories','productAltImages','total_stock','relatedProducts'));
     }
 
     public function getProductPrice(Request $request){
         $data = $request->all(); 
-        $proArr = explode("-",$data['idsize']);
-        $proAttr = ProductsAttribute::where(['product_id'=>$proArr[0],'size'=>$proArr[1]])->first();
-        echo $proAttr->price; 
+        $pro = explode("-",$data['product_id'])->first();
+        
+        echo $pro->price; 
         echo "#";
-        echo $proAttr->stock; 
+        echo $pro->stock; 
     }
 
 
@@ -442,20 +378,16 @@ class ProductsController extends Controller
             Session::put('session_id',$session_id);
         }
 
-        $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'],'product_color' => $data['product_color'],'size' => $data['size'],'session_id' => $session_id])->count();
+        $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'],
+            'session_id' => $session_id])->count();
         if($countProducts>0){
             return redirect()->back()->with('flash_message_error','Product already exist in Cart!');
         }
-
-        $sizeIDArr = explode('-',$data['size']);
-        $product_size = $sizeIDArr[1];
-
-        $getSKU = ProductsAttribute::select('sku')->where(['product_id' => $data['product_id'], 'size' => $product_size])->first();
                 
         DB::table('cart')
         ->insert(['product_id' => $data['product_id'],'product_name' => $data['product_name'],
-            'product_code' => $getSKU['sku'],'product_color' => $data['product_color'],
-            'price' => $data['price'],'size' => $product_size,'quantity' => $data['quantity'],'user_email' => $data['user_email'],'session_id' => $session_id]);
+            'product_code' => $data['product_code'],
+            'price' => $data['price'],'quantity' => $data['quantity'],'user_email' => $data['user_email'],'session_id' => $session_id]);
 
         return redirect('cart')->with('flash_message_success','Product has been added in Cart!');
 
@@ -481,9 +413,9 @@ class ProductsController extends Controller
     public function updateCartQuantity($id=null,$quantity=null){
         Session::forget('CouponAmount');
         Session::forget('CouponCode');
-        $getProductSKU = DB::table('cart')->select('product_code','quantity')->where('id',$id)->first();
-        $getProductStock = ProductsAttribute::where('sku',$getProductSKU->product_code)->first();
-        $updated_quantity = $getProductSKU->quantity+$quantity;
+        $getProduct = DB::table('cart')->select('product_code','quantity')->where('id',$id)->first();
+        $getProductStock = Product::where('product_code',$getProduct->product_code)->first();
+        $updated_quantity = $getProduct->quantity+$quantity;
         if($getProductStock->stock>=$updated_quantity){
             DB::table('cart')->where('id',$id)->increment('quantity',$quantity); 
             return redirect('cart')->with('flash_message_success','Product Quantity has been updated in Cart!');   
@@ -675,8 +607,6 @@ class ProductsController extends Controller
                 $cartPro->product_id = $pro->product_id;
                 $cartPro->product_code = $pro->product_code;
                 $cartPro->product_name = $pro->product_name;
-                $cartPro->product_color = $pro->product_color;
-                $cartPro->product_size = $pro->size;
                 $cartPro->product_price = $pro->price;
                 $cartPro->product_qty = $pro->quantity;
                 $cartPro->save();

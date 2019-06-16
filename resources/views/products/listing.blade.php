@@ -2,121 +2,87 @@
 
 @section('content')
 
-<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png" class="pricing" alt="" />
-								</div>
-							</div>
-							
-						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-</section><!--/slider-->
-	
-<section>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-3">
-				@include('layouts.frontLayout.front_sidebar')
-			</div>
-			
-			<div class="col-sm-9 padding-right">
-				<div class="features_items"><!--features_items-->
-					<h2 class="title text-center">
-						@if(!empty($search_product))
+<section class="new_arrivals_area section_padding_70 clearfix">
+            <div class="container">
+                <div class="row">
+                
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="shop_sidebar_area">
+                           
+                            <div class="widget catagory mb-50">
+                               <!--  Side Nav  -->
+        <div class="nav-side-menu">
+            
+                <h6>Categories</h6>
+                <div class="menu-list">
+                <ul id="menu-content" class="menu-content collapse out">
+                    @foreach($categories as $cat)
+                    <!-- Single Item -->
+                    <li data-toggle="collapse" data-target="#{{$cat->id}}" class="collapsed active">
+                        <a>{{$cat->name}} <span class="arrow"></span></a>
+                        
+                        <ul class="sub-menu1 collapse" id="{{$cat->id}}">
+                            @foreach($cat->categories as $subcat)
+                       @if($subcat->status==1)
+                            <li><a href="{{ asset('products/'.$subcat->url) }}">{{$subcat->name}}</a></li>
+                             @endif
+                          @endforeach
+                        </ul>
+                       
+                    </li>
+                    @endforeach
+                </ul>
+                    
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 col-lg-9">
+                        <div class="shop_grid_product_area">
+                            <div class="row">
+                            	<div class="col-12">
+                        <div class="section_heading text-center">
+                            <h4>@if(!empty($search_product))
 							{{ $search_product }} Item
 						@else
 							{{ $categoryDetails->name }} Items
 						@endif
-					</h2>
-					@foreach($productsAll as $pro)
-					<div class="col-sm-4">
-						<div class="product-image-wrapper">
-							<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="{{ asset('/images/backend_images/product/small/'.$pro->image) }}" alt="" />
-										<h2>$ {{ $pro->price }}</h2>
-										<p>{{ $pro->product_name }}</p>
-										<a href="{{ url('/product/'.$pro->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>$ {{ $pro->price }}</h2>
-											<p>{{ $pro->product_name }}</p>
-											<a href="{{ url('/product/'.$pro->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
-							</div>
-							<div class="choose">
-								<ul class="nav nav-pills nav-justified">
-									<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-									<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					@endforeach
-					
-					
-				</div><!--features_items-->
-				
-			</div>
-		</div>
-	</div>
-</section>
+					</h4>
+                        </div>
+                    </div>
+                        @foreach($productsAll as $pro)
+                                <!-- Single gallery Item Start -->
+                    <div class="col-12 col-sm-5 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s"> 
+                    
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img src="{{ asset('/images/backend_images/product/small/'.$pro->image) }}" alt="">
+                            <!-- <div class="product-quicview">
+                                <a href="#" data-toggle="modal" data-target="#quickview1" > <i class="ti-plus"></i></a>
+                            </div>   -->                        
+                        </div>
+                        
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <h4 class="product-price">$ {{ $pro->price }}</h4>
+                            <p>{{ $pro->product_name }}</p>
+                            <!-- Add to Cart -->
+                            <a href="{{ url('/product/'.$pro->id) }}" class="add-to-cart-btn">ADD TO CART</a>
+                        </div>                              
+                    </div>
+                    @endforeach
+
+                    
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </section>
 
 @endsection

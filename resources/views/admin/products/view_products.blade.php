@@ -35,8 +35,8 @@
                   <th>Category Name</th>
                   <th>Product Name</th>
                   <th>Product Code</th>
-                  <th>Product Color</th>
                   <th>Price</th>
+				  <th>Stock</th>
                   <th>Image</th>
                   <th>Actions</th>
                 </tr>
@@ -49,8 +49,8 @@
                   <td class="center">{{ $product->category_name }}</td>
                   <td class="center">{{ $product->product_name }}</td>
                   <td class="center">{{ $product->product_code }}</td>
-                  <td class="center">{{ $product->product_color }}</td>
                   <td class="center">{{ $product->price }}</td>
+				  <td class="center">{{ $product->stock }}</td>
                   <td class="center">
                     @if(!empty($product->image))
                     <img src="{{ asset('/images/backend_images/product/small/'.$product->image) }}" style="width:50px;">
@@ -58,8 +58,7 @@
                   </td>
                   <td class="center">
                     <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a> 
-                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a> 
-                    <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini">Add</a>
+                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a>
                     <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini">Add</a>
                     <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Delete</a>
  
@@ -72,10 +71,8 @@
                             <p>Product ID: {{ $product->id }}</p>
                             <p>Category ID: {{ $product->category_id }}</p>
                             <p>Product Code: {{ $product->product_code }}</p>
-                            <p>Product Color: {{ $product->product_color }}</p>
                             <p>Price: {{ $product->price }}</p>
-                            <p>Fabric: </p>
-                            <p>Pattern: </p>
+							<p>Stock: {{ $product->stock }}</p>
                             <p>Description: {{ $product->description }}</p>
                           </div>
                         </div>

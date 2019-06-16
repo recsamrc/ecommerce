@@ -47,8 +47,14 @@ Route::any('/get-product-price','ProductsController@getProductPrice');
 // Apply Coupon
 Route::post('/cart/apply-coupon','ProductsController@applyCoupon');
 
-// Users Login/Register Page
-Route::get('/login-register','UsersController@userLoginRegister');
+// Users Register Page
+// Route::get('/login-register','UsersController@userLoginRegister');
+//TODO
+Route::get('/userregister','UsersController@userRegister');
+//Users Login Page
+Route::get('/userlogin','UsersController@userLogin');
+
+
 
 // Users Register Form Submit
 Route::post('/user-register','UsersController@register');
@@ -75,6 +81,7 @@ Route::group(['middleware'=>['frontlogin']],function(){
 	Route::post('/update-user-pwd','UsersController@updatePassword');
 	// Checkout Page
 	Route::match(['get','post'],'checkout','ProductsController@checkout');
+	
 	// Order Review Page
 	Route::match(['get','post'],'/order-review','ProductsController@orderReview');
 	// Place Order
@@ -119,10 +126,7 @@ Route::group(['middleware' => ['adminlogin']], function () {
 	Route::match(['get', 'post'], '/admin/add-images/{id}','ProductsController@addImages');
 	Route::get('/admin/delete-alt-image/{id}','ProductsController@deleteProductAltImage');
 
-	// Admin Attributes Routes
-	Route::match(['get', 'post'], '/admin/add-attributes/{id}','ProductsController@addAttributes');
-	Route::match(['get', 'post'], '/admin/edit-attributes/{id}','ProductsController@editAttributes');
-	Route::get('/admin/delete-attribute/{id}','ProductsController@deleteAttribute');
+	
 
 	// Admin Coupon Routes
 	Route::match(['get','post'],'/admin/add-coupon','CouponsController@addCoupon');

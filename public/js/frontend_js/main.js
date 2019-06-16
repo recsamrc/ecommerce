@@ -34,33 +34,33 @@ $(document).ready(function(){
 $(document).ready(function(){
 
 	// Change Price with Size
-	$("#selSize").change(function(){
-		var idsize = $(this).val();
-		if(idsize==""){
-			return false;
-		}
-		$.ajax({
-			type:'get',
-			url:'/get-product-price',
-			data:{idsize:idsize},
-			success:function(resp){
-				var arr = resp.split('#');
-				$("#getPrice").html("INR "+arr[0]);
-				$("#price").val(arr[0]);
-				if(arr[1]==0){
-					$("#cartButton").hide();
-					$("#Availability").text("Out Of Stock");
-				}else{
-					$("#cartButton").show();
-					$("#Availability").text("In Stock");
-				}
+	// $("#selSize").change(function(){
+	// 	var idsize = $(this).val();
+	// 	if(idsize==""){
+	// 		return false;
+	// 	}
+	// 	$.ajax({
+	// 		type:'get',
+	// 		url:'/get-product-price',
+	// 		data:{idsize:idsize},
+	// 		success:function(resp){
+	// 			var arr = resp.split('#');
+	// 			$("#getPrice").html("INR "+arr[0]);
+	// 			$("#price").val(arr[0]);
+	// 			if(arr[1]==0){
+	// 				$("#cartButton").hide();
+	// 				$("#Availability").text("Out Of Stock");
+	// 			}else{
+	// 				$("#cartButton").show();
+	// 				$("#Availability").text("In Stock");
+	// 			}
 				
 				
-			},error:function(){
-				alert("Error");
-			}
-		});
-	});
+	// 		},error:function(){
+	// 			alert("Error");
+	// 		}
+	// 	});
+	// });
 
 	// Change Image
 	$(".changeImage").click(function(){
@@ -111,6 +111,7 @@ $().ready(function(){
 				minlength:2,
 				accept: "[a-zA-Z]+"
 			},
+			
 			password:{
 				required:true,
 				minlength:6
@@ -121,12 +122,14 @@ $().ready(function(){
 				remote:"/check-email"
 			}
 		},
+
 		messages:{
+			
 			name:{ 
-				required:"Please enter your Name",
+				required:"Please enter your name",
 				minlength: "Your Name must be atleast 2 characters long",
 				accept: "Your Name must contain letters only"		
-			}, 
+			},  
 			password:{
 				required:"Please provide your Password",
 				minlength: "Your Password must be atleast 6 characters long"
@@ -137,7 +140,10 @@ $().ready(function(){
 				remote: "Email already exists!"
 			}
 		}
+
 	});
+
+
 
 	// Validate Register form on keyup and submit
 	$("#accountForm").validate({
@@ -147,6 +153,8 @@ $().ready(function(){
 				minlength:2,
 				accept: "[a-zA-Z]+"
 			},
+
+			
 			address:{
 				required:true,
 				minlength:6
@@ -292,6 +300,8 @@ $().ready(function(){
     });
 
 });
+
+
 
 function selectPaymentMethod(){
 	if($('#Paypal').is(':checked') || $('#COD').is(':checked')){

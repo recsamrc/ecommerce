@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Mail;
 class UsersController extends Controller
 {
 
-    public function userLoginRegister(){
-        return view('users.login_register');    
+    public function userRegister(){
+        return view('users.userregister');    
+    }
+
+    public function userLogin(){
+        return view('users.userlogin');    
     }
 
     public function login(Request $request){
@@ -93,17 +97,17 @@ class UsersController extends Controller
         if($userCount > 0){
             $userDetails = User::where('email',$email)->first();
             if($userDetails->status == 1){
-                return redirect('login-register')->with('flash_message_success','Your Email account is already activated. You can login now.');
+                return redirect('userlogin')->with('flash_message_success','Your Email account is already activated. You can login now.');
             }else{
                 User::where('email',$email)->update(['status'=>1]);
 
                 // Send Welcome Email
-                $messageData = ['email'=>$email,'name'=>$userDetails->name];
+                $messageData = ['email'=>$email,'name'=>$userDetails->first_name];
                 Mail::send('emails.welcome',$messageData,function($message) use($email){
                     $message->to($email)->subject('Welcome to E-com Website');
                 });
 
-                return redirect('login-register')->with('flash_message_success','Your Email account is activated. You can login now.');
+                return redirect('userlogin')->with('flash_message_success','Your Email account is activated. You can login now.');
             }
         }else{
             abort(404);
